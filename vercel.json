@@ -2,11 +2,22 @@
   "version": 2,
   "builds": [
     {
-      "src": "api/**/*.js",
+      "src": "index.js",
+      "use": "@vercel/node"
+    },
+    {
+      "src": "socket.js",
       "use": "@vercel/node"
     }
   ],
-  "env": {
-    "STRIPE_SECRET_KEY": "@stripe_secret_key"
-  }
+  "routes": [
+    {
+      "src": "/socket.io/(.*)",
+      "dest": "/socket.js"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/index.js"
+    }
+  ]
 }
